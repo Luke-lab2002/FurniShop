@@ -1,5 +1,5 @@
 import express from "express";
-import { HelloWorld, HomePage, HandleRegister, ShopPage} from "../controllers/users";
+import { HelloWorld, HomePage, HandleRegister, ShopPage} from "../controllers/web";
 
 const router = express.Router();
 
