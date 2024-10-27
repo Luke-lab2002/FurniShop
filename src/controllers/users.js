@@ -7,12 +7,18 @@ const HomePage =(req, res)=>{
     return res.render("home");
 }
 
+const ShopPage =(req, res)=>{
+    return res.render("shop");
+}
+
 const HandleRegister =(req, res)=>{
     return res.render("register");
 }
 
+
 module.exports ={
     HelloWorld,
     HomePage,
-    HandleRegister
+    HandleRegister,
+    ShopPage
 }
