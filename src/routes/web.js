@@ -1,11 +1,12 @@
 import express from "express";
-import { HelloWorld, HomePage } from "../controllers/users";
+import { HelloWorld, HomePage, HandleRegister} from "../controllers/users";
 
 const router = express.Router();
 
 const InitRouter = (app) =>{
     // router.get("/", HelloWorld);
-    router.get("/", HomePage);
+    router.get("/home", HomePage);
+    router.get("/register", HandleRegister)
 
 
     return app.use("/", router);

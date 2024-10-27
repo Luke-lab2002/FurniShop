@@ -1,6 +1,6 @@
 import express from "express";
 import configViewEngine from "./config/configViewEngine";
-import InitRouter from "./routes/users";
+import InitRouter from "./routes/web";
 import expressLayouts from 'express-ejs-layouts';
 require("dotenv").config();
 
