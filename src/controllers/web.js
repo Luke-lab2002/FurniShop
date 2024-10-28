@@ -4,21 +4,40 @@ const HelloWorld =(req, res)=>{
 }
 
 const HomePage =(req, res)=>{
-    return res.render("home");
+    return res.render("home", {layout:'layout'});
 }
 
 const ShopPage =(req, res)=>{
-    return res.render("shop");
+    return res.render("shop", {layout:'layout'});
 }
 
-const HandleRegister =(req, res)=>{
-    return res.render("register");
+const RegisterPage =(req, res)=>{
+    return res.render("register", {layout:'layout'});
 }
 
+const LoginPage =(req, res)=>{
+    return res.render("login", {layout:'layout'});
+}
+
+const BlogPage =(req, res) =>{
+    return res.render("blog", {layout:'layout'});
+}
+
+const CartPage =(req, res) =>{
+    return res.render("cart", {layout:'layout'});
+}
+
+const AdminPage =(req, res) =>{
+    return res.render("admin", {layout:'admin_layout'});
+}
 
 module.exports ={
     HelloWorld,
     HomePage,
-    HandleRegister,
-    ShopPage
+    RegisterPage,
+    ShopPage,
+    LoginPage,
+    BlogPage,
+    CartPage,
+    AdminPage
 }
