@@ -27,9 +27,7 @@ const CartPage =(req, res) =>{
     return res.render("cart", {layout:'layout'});
 }
 
-const AdminPage =(req, res) =>{
-    return res.render("admin", {layout:'admin_layout'});
-}
+
 
 module.exports ={
     HelloWorld,
@@ -39,5 +37,4 @@ module.exports ={
     LoginPage,
     BlogPage,
     CartPage,
-    AdminPage
 }

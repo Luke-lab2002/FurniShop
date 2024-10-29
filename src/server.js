@@ -1,7 +1,8 @@
 import express from "express";
 import expressLayouts from 'express-ejs-layouts';
 import configViewEngine from "./config/configViewEngine";
-import {InitRouter, InitRouterAdmin} from "./routes/web";
+import InitRouter from "./routes/web";
+import InitRouterAdmin from "./routes/admin";
 import ConnectDB from "./config/connectDB";
 
 
@@ -13,8 +14,8 @@ ConnectDB();
 
 configViewEngine(app);
 app.use(expressLayouts);
-InitRouter(app);
 InitRouterAdmin(app);
+InitRouter(app);
 
 
 app.listen(PORT, ()=>{

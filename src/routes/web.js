@@ -1,5 +1,5 @@
 import express from "express";
-import { HelloWorld, HomePage, RegisterPage, ShopPage, LoginPage, BlogPage, CartPage, AdminPage} from "../controllers/web";
+import { HelloWorld, HomePage, RegisterPage, ShopPage, LoginPage, BlogPage, CartPage} from "../controllers/web";
 
 const router = express.Router();
 
@@ -17,11 +17,5 @@ const InitRouter = (app) =>{
     return app.use("/", router);
 }
 
-const InitRouterAdmin = (app) =>{
-    router.get("/", AdminPage);
 
-
-    return app.use("/admin", router);
-}
-
-module.exports = { InitRouter, InitRouterAdmin};
+export default InitRouter;
