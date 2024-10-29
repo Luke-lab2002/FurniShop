@@ -8,13 +8,16 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link href="css/tiny-slider.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
-  <title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <title>Furni </title>
 </head>
 <body>
   <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
     <div class="container">
-      <a class="navbar-brand" href="index.html">Furni<span>.</span></a>
+      <a class="navbar-brand" href="/home">Furni<span>.</span></a>
   
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -27,11 +30,25 @@
           <!-- <li><a class="nav-link" href="about.html">About us</a></li> -->
           <!-- <li><a class="nav-link" href="services.html">Services</a></li> -->
           <li><a class="nav-link" href="/blog">Blog</a></li>
-          <li><a class="nav-link" href="contact.html">Contact us</a></li>
         </ul>
+        
   
         <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-          <li><a class="nav-link" href="#"><img src="images/user.svg"></a></li>
+
+          <li>
+            <div class="dropdown">
+              <a class="dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <!-- <a class="nav-link" href="#"> -->
+                  <img src="images/user.svg">
+                <!-- </a> -->
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="#">Login</a>
+                  <a class="dropdown-item" href="#">Register</a>
+              </div>
+          </div>
+          
+          </li>
           <li><a class="nav-link" href="/cart"><img src="images/cart.svg"></a></li>
         </ul>
       </div>
