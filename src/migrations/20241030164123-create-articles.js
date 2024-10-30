@@ -18,7 +18,7 @@ module.exports = {
       url_image: {
         type: Sequelize.STRING
       },
-      id_admin: {
+      admin_id: {
         type: Sequelize.INTEGER,
         references:{
           model:"Admins",

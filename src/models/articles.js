@@ -11,13 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Articles.belongsTo(models.Admin, {
+        foreignKey:"admin_id",
+        as:"Admin"
+      }), 
+      Articles.hasMany(models.CommentArticle, {
+        foreignKey:"article_id",
+        as:"CommentArticle"
+      })
     }
   }
   Articles.init({
     title: DataTypes.STRING,
     content: DataTypes.TEXT,
     url_image: DataTypes.STRING,
-    id_admin: DataTypes.INTEGER
+    admin_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Articles',
