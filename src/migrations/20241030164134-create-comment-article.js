@@ -2,31 +2,33 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('OrdersDetails', {
+    await queryInterface.createTable('CommentArticles', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      order_id: {
+      user_id: {
         type: Sequelize.INTEGER,
         references:{
-          model:"Orders",
+          model:"Users",
           key:"id"
         }
       },
-      product_id: {
+      content: {
+        type: Sequelize.TEXT
+      },
+      article_id: {
         type: Sequelize.INTEGER,
         references:{
-          model:"Products",
+          model:"Articles",
           key:"id"
         }
       },
-      number: {
-        type: Sequelize.INTEGER
+      state_notifi: {
+        type: Sequelize.BOOLEAN
       },
-      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -38,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('OrdersDetails');
+    await queryInterface.dropTable('CommentArticles');
   }
 };

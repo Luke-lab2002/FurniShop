@@ -2,23 +2,33 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Admins', {
+    await queryInterface.createTable('CommentProducts', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      user_id: {
+        type: Sequelize.INTEGER,
+        references:{
+          model:"Users",
+          key:"id"
+        }
       },
-      email: {
-        type: Sequelize.STRING
+      content: {
+        type: Sequelize.TEXT
       },
-      password: {
-        type: Sequelize.STRING
+      product_id: {
+        type: Sequelize.INTEGER,
+        references:{
+          model:"Products",
+          key:"id"
+        }
       },
-      
+      state_notifi: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -30,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Admins');
+    await queryInterface.dropTable('CommentProducts');
   }
 };
