@@ -1,4 +1,4 @@
-import {HandleCreateUser, HandleGetListUser, HandleGetListAdmin} from "../services/admin"
+import {HandleCreateUser, HandleGetListUser, HandleGetListAdmin, HandleCreateAdmin} from "../services/admin"
 
 
 
@@ -23,7 +23,14 @@ const CreateUser = async(req, res) =>{
     let {email, name, password} = req.body;
     let result = await HandleCreateUser(email, name, password);
     console.log(result);
-    res.redirect("/admin-users");
+    return res.redirect("/admin-users");
+}
+
+const CreateAdmin = async(req, res) =>{
+    let {email, name, password} = req.body;
+    let result = await HandleCreateAdmin(email, name, password);
+    console.log(result);
+    return res.redirect("/admin-admins");
 }
 
 
@@ -32,5 +39,6 @@ module.exports = {
     AdminPage,
     AdminUserPage,
     CreateUser,
-    AdminAdminsPage
+    AdminAdminsPage,
+    CreateAdmin
 }

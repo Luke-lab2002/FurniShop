@@ -1,4 +1,4 @@
-import { AdminPage, AdminUserPage, CreateUser, AdminAdminsPage } from "../controllers/admin";
+import { AdminPage, AdminUserPage, CreateUser, AdminAdminsPage, CreateAdmin } from "../controllers/admin";
 import express from "express";
 
 const router = express.Router();
@@ -10,7 +10,8 @@ const InitRouterAdmin = (app) =>{
 
 
 
-    router.post("/admin-createuser", CreateUser)
+    router.post("/admin-createuser", CreateUser);
+    router.post("/admin-create-admin", CreateAdmin);
 
     return app.use("/", router);
 }
