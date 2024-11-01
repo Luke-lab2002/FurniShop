@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/add_user_form.css">
+    <title>Document</title>
+</head>
+<body>
+  <div class="page">
+    <div class="row">
+      <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+        <div class="card flex-fill">
+          <div class="card-header">
+  
+            <h5 class="card-title mb-0">Users</h5>
+          </div>
+          <table class="table table-hover my-0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th class="d-none d-xl-table-cell">Email</th>
+                <th class="d-none d-xl-table-cell">Created At</th>
+                <th>Upate</th>
+                <th class="d-none d-md-table-cell">Ban</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% users.forEach(user =>{ %>
+                <tr>
+                  <td><%= user.name %></td>
+                  <td class="d-none d-xl-table-cell"><%= user.email %></td>
+                  <td class="d-none d-xl-table-cell"><%= user.createdAt %></td>
+                  <td><button type="button" class="btn btn-warning">Update</button></td>
+                  <td><div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="check1" name="option1" value="something">
+                    <label class="form-check-label">Ban</label>
+                  </div></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="box">
+        <div class="add_user_form">
+            <h2>Add Users</h2>
+            <form method="post" action="/admin-createuser">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" required>
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="text" class="form-control" id="exampleInputName1" aria-describedby="emailHelp" placeholder="Enter email" name="name" required>
+                    <small id="emailHelp" class="form-text text-muted">Enter your name</small>
+                  </div>
+                
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" required>
+                </div>
+                <br/>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    </div>
+  
+  
+
+      
+  </div>
+  
+    
+    
+</body>
+</html>

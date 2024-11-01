@@ -1,13 +1,18 @@
-import { AdminPage } from "../controllers/admin";
+import { AdminPage, AdminUserPage, CreateUser } from "../controllers/admin";
 import express from "express";
 
 const router = express.Router();
 
 const InitRouterAdmin = (app) =>{
-    router.get("/", AdminPage);
+    router.get("/admin", AdminPage);
+    router.get("/admin-users", AdminUserPage);
 
 
-    return app.use("/admin", router);
+
+
+    router.post("/admin-createuser", CreateUser)
+
+    return app.use("/", router);
 }
 
 export default InitRouterAdmin;

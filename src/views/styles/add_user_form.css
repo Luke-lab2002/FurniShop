@@ -1,0 +1,29 @@
+.add_user_form{
+    width: 350px;
+    height: 300px;
+    margin-top: 20;
+    margin-left: 20;
+    
+}
+.box{
+    align-items: center;
+    background-origin: padding-box;
+    background-color: white;
+    height: 330px;
+    width: 400px;
+
+    border-radius: 20px 20px 20px;
+    box-shadow: 30;
+    box-shadow: 0.2px 0.2px 0.6px 0.6px gray;
+
+}
+
+.row{
+    /* margin: 10px; */
+    width: 1300px;
+    display: flex;
+    flex-wrap:nowrap;
+}
+.page{
+    margin: 10px;
+}
