@@ -1,4 +1,4 @@
-import { AdminPage, AdminUserPage, CreateUser } from "../controllers/admin";
+import { AdminPage, AdminUserPage, CreateUser, AdminAdminsPage } from "../controllers/admin";
 import express from "express";
 
 const router = express.Router();
@@ -6,7 +6,7 @@ const router = express.Router();
 const InitRouterAdmin = (app) =>{
     router.get("/admin", AdminPage);
     router.get("/admin-users", AdminUserPage);
-
+    router.get("/admin-admins", AdminAdminsPage);
 
 
 

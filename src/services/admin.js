@@ -40,7 +40,19 @@ const HandleGetListUser = async() =>{
     }
 }
 
+const HandleGetListAdmin = async() =>{
+    try {
+        let ListAdmin = await db.Admin.findAll();
+        // console.log(ListUsers)
+        return ListAdmin
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     HandleCreateUser,
-    HandleGetListUser
+    HandleGetListUser,
+    HandleGetListAdmin
 }
