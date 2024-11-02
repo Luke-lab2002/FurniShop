@@ -71,9 +71,23 @@ const HandleGetListAdmin = async() =>{
     }
 }
 
+const HandleDeleteUser = async(id) =>{
+    try {
+        await db.Users.destroy({
+            where: {
+              id: id,
+            },
+          });
+        console.log(id);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     HandleCreateUser,
     HandleGetListUser,
     HandleGetListAdmin,
-    HandleCreateAdmin
+    HandleCreateAdmin,
+    HandleDeleteUser
 }

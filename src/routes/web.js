@@ -1,5 +1,5 @@
 import express from "express";
-import { HelloWorld, HomePage, RegisterPage, ShopPage, LoginPage, BlogPage, CartPage} from "../controllers/web";
+import { HelloWorld, HomePage, RegisterPage, ShopPage, LoginPage, BlogPage, CartPage, RegisterUser} from "../controllers/web";
 
 const router = express.Router();
 
@@ -11,7 +11,7 @@ const InitRouter = (app) =>{
     router.get("/login", LoginPage);
     router.get("/blog", BlogPage);
     router.get("/cart", CartPage);
-
+    router.post("/registerUser",RegisterUser);
 
 
     return app.use("/", router);

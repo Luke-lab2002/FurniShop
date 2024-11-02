@@ -1,3 +1,5 @@
+import {HandleCreateUser, HandleGetListUser, HandleGetListAdmin, HandleCreateAdmin} from "../services/admin"
+
 
 const HelloWorld =(req, res)=>{
     return res.send("<h1>Hello World<h1/>");
@@ -27,6 +29,11 @@ const CartPage =(req, res) =>{
     return res.render("cart", {layout:'layout'});
 }
 
+const RegisterUser = async(req, res) =>{
+    let {email, name, password} = req.body;
+    let result = await HandleCreateUser(email, name, password);
+    return res.redirect("/login");
+}
 
 
 module.exports ={
@@ -37,4 +44,5 @@ module.exports ={
     LoginPage,
     BlogPage,
     CartPage,
+    RegisterUser
 }

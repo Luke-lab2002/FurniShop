@@ -34,7 +34,7 @@
                   <td class="d-none d-xl-table-cell"><%= user.email %></td>
                   <td class="d-none d-xl-table-cell"><%= user.createdAt %></td>
                   <td><form><button type="button" class="btn btn-warning">Update</button></form></td>
-                  <td><form><button type="button" class="btn btn-danger">Delete</button></form></td>
+                  <td><form method="POST" action="/delete-user/<%=user.id%>"><button type="submit" class="btn btn-danger">Delete</button></form></td>
                   <td><div class="form-check">
                     <input class="form-check-input" type="checkbox" id="check1" name="option1" value="something">
                     <label class="form-check-label">Ban</label>
