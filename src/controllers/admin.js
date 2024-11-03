@@ -26,7 +26,6 @@ const CreateUser = async(req, res) =>{
     return res.redirect("/admin-users");
 }
 
-
 const CreateAdmin = async(req, res) =>{
     let {email, name, password} = req.body;
     let result = await HandleCreateAdmin(email, name, password);
@@ -41,11 +40,24 @@ const DeleteUser = async(req, res) =>{
     return res.redirect("/admin-users");
 }
 
+const AdminProductsPage = (req, res)=>{
+    return res.render("admin_products_page", {layout:'admin_layout'});
+
+}
+
+const AdminCreateProduct = (req, res)=>{
+    console.log(req.body);
+    console.log(req.file.filename);
+    return res.redirect("/admin-products");
+}
+
 module.exports = {
     AdminPage,
     AdminUserPage,
     CreateUser,
     AdminAdminsPage,
     CreateAdmin,
-    DeleteUser
+    DeleteUser,
+    AdminProductsPage,
+    AdminCreateProduct
 }
