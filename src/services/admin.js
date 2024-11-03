@@ -84,10 +84,72 @@ const HandleDeleteUser = async(id) =>{
     }
 }
 
+const HandleDeleteAdmin = async(id) =>{
+    try {
+        await db.Admin.destroy({
+            where: {
+              id: id,
+            },
+          });
+        console.log(id);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const HandleDeleteProduct = async(id) =>{
+    try {
+        await db.Products.destroy({
+            where: {
+              id: id,
+            },
+          });
+        console.log(id);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+const CreateProducts = async (name, price, code, url_image) =>{
+    try {
+        let CheckCode = await db.Products.findOne({ where: { code: code } });
+        if(CheckCode != null){
+            return {"message":"Mã sản phẩm đã tồn tại trong hệ thống!"};
+        }else {        
+            const newUser = await db.Products.create({ 
+            name: name, 
+            price: price, 
+            code: code,
+            url_image: url_image
+         });
+    
+        return newUser.name;  }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const HandleGetListProducts = async() =>{
+    try {
+        let ListUsers = await db.Products.findAll();
+        // console.log(ListUsers)
+        return ListUsers
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     HandleCreateUser,
     HandleGetListUser,
     HandleGetListAdmin,
     HandleCreateAdmin,
-    HandleDeleteUser
+    HandleDeleteUser,
+    CreateProducts,
+    HandleGetListProducts,
+    HandleDeleteProduct,
+    HandleDeleteAdmin
 }

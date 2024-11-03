@@ -1,4 +1,4 @@
-import { AdminPage, AdminUserPage, CreateUser, AdminAdminsPage, CreateAdmin, DeleteUser, AdminProductsPage, AdminCreateProduct } from "../controllers/admin";
+import { AdminPage, AdminUserPage, CreateUser, AdminAdminsPage, CreateAdmin, DeleteUser, AdminProductsPage, AdminCreateProduct, DeleteAdmin, DeleteProduct } from "../controllers/admin";
 import express from "express";
 const multer = require('multer');
 const path = require('path');
@@ -26,7 +26,9 @@ const InitRouterAdmin = (app) =>{
     router.post("/admin-createuser", CreateUser);
     router.post("/admin-create-admin", CreateAdmin);
     router.post("/delete-user/:Id", DeleteUser);
-    router.post("/admin-create-product",upload.single('image') ,AdminCreateProduct);
+    router.post("/admin-create-product",upload.single('image'), AdminCreateProduct);
+    router.post("/delete-admin/:Id", DeleteAdmin);
+    router.post("/delete-product/:Id", DeleteProduct);
 
     return app.use("/", router);
 }

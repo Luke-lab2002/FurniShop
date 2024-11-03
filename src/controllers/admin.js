@@ -1,4 +1,5 @@
-import {HandleCreateUser, HandleGetListUser, HandleGetListAdmin, HandleCreateAdmin, HandleDeleteUser} from "../services/admin"
+import {HandleCreateUser, HandleGetListUser, HandleGetListAdmin, HandleCreateAdmin, HandleDeleteUser, CreateProducts, HandleGetListProducts, HandleDeleteProduct,
+    HandleDeleteAdmin} from "../services/admin"
 
 
 
@@ -40,14 +41,32 @@ const DeleteUser = async(req, res) =>{
     return res.redirect("/admin-users");
 }
 
-const AdminProductsPage = (req, res)=>{
-    return res.render("admin_products_page", {layout:'admin_layout'});
+const DeleteAdmin = async(req, res) =>{
+    let id = req.params.Id;
+    await HandleDeleteAdmin(id);
+    console.log("check id >>",id);
+    return res.redirect("/admin-admins");
+}
+
+const DeleteProduct = async(req, res) =>{
+    let id = req.params.Id;
+    await HandleDeleteProduct(id);
+    console.log("check id >>",id);
+    return res.redirect("/admin-products");
+}
+
+
+
+const AdminProductsPage = async (req, res)=>{
+    let listProucts = await HandleGetListProducts();
+    return res.render("admin_products_page", {layout:'admin_layout', Products:listProucts});
 
 }
 
-const AdminCreateProduct = (req, res)=>{
-    console.log(req.body);
-    console.log(req.file.filename);
+const AdminCreateProduct = async (req, res)=>{
+    let {name, price, code} = req.body;
+    let path_img = req.file.destination +"/" + req.file.filename;
+    await CreateProducts(name, price, code, path_img);
     return res.redirect("/admin-products");
 }
 
@@ -59,5 +78,7 @@ module.exports = {
     CreateAdmin,
     DeleteUser,
     AdminProductsPage,
-    AdminCreateProduct
+    AdminCreateProduct,
+    DeleteProduct,
+    DeleteAdmin
 }

@@ -19,13 +19,29 @@
             <thead>
               <tr>
                 <th>Name</th>
-                <th class="d-none d-xl-table-cell">Email</th>
+                <th class="d-none d-xl-table-cell">Price</th>
+                <th class="d-none d-xl-table-cell">code</th>
+                <th class="d-none d-xl-table-cell">Admin</th>
                 <th class="d-none d-xl-table-cell">Created At</th>
                 <th>Upate</th>
                 <th class="d-none d-md-table-cell">Delete</th>
               </tr>
             </thead>
             <tbody>
+              
+              <% Products.forEach(product =>{ %>
+                <tr>
+                  <td><%= product.name %></td>
+                  <td class="d-none d-xl-table-cell"><%= product.price %></td>
+                  <td class="d-none d-xl-table-cell"><%= product.code %></td>
+                  <td class="d-none d-xl-table-cell"><%= product.admin_id%></td>
+
+
+                  <td class="d-none d-xl-table-cell"><%= product.createdAt %></td>
+                  <td><form><button type="button" class="btn btn-warning">Update</button></form></td>
+                  <td><form method="POST" action="/delete-product/<%=product.id%>"><button type="submit" class="btn btn-danger">Delete</button></form></td>
+                </tr>
+              <% }) %>
 
             </tbody>
           </table>
