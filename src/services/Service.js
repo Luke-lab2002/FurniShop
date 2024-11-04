@@ -133,7 +133,48 @@ const CreateProducts = async (name, price, code, url_image) =>{
 
 const HandleGetListProducts = async() =>{
     try {
-        let ListUsers = await db.Products.findAll();
+        let ListUsers = await db.Products.findAll({
+            include: [{
+                model: db.Admin,
+                as:'Admin',
+                attributes: ['name'] // Chỉ lấy tên admin
+            }]
+        });
+        // console.log(ListUsers)
+        return ListUsers
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const HandleCreateArticle = async (title, content, url_image) =>{
+    try {
+        let CheckCode = await db.Articles.findOne({ where: { title: title } });
+        if(CheckCode != null){
+            return {"message":"Tiêu đề đã tồn tại trong hệ thống"};
+        }else {        
+            const newUser = await db.Articles.create({ 
+            title: title, 
+            content: content, 
+            url_image: url_image
+         });
+    
+        return newUser.name;  }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const HandleGetListArticles = async()=>{
+    try {
+        let ListUsers = await db.Articles.findAll({
+            include: [{
+                model: db.Admin,
+                as:'Admin',
+                attributes: ['name'] // Chỉ lấy tên admin
+            }]
+        });
         // console.log(ListUsers)
         return ListUsers
 
@@ -151,5 +192,7 @@ module.exports = {
     CreateProducts,
     HandleGetListProducts,
     HandleDeleteProduct,
-    HandleDeleteAdmin
+    HandleDeleteAdmin,
+    HandleCreateArticle,
+    HandleGetListArticles
 }

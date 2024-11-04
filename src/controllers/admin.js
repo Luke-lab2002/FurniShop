@@ -1,5 +1,5 @@
 import {HandleCreateUser, HandleGetListUser, HandleGetListAdmin, HandleCreateAdmin, HandleDeleteUser, CreateProducts, HandleGetListProducts, HandleDeleteProduct,
-    HandleDeleteAdmin} from "../services/Service"
+    HandleDeleteAdmin, HandleCreateArticle, HandleGetListArticles} from "../services/Service"
 
 
 
@@ -70,6 +70,18 @@ const AdminCreateProduct = async (req, res)=>{
     return res.redirect("/admin-products");
 }
 
+const AdminBlogPage = async (req, res)=>{
+    let listArticles = await HandleGetListArticles()
+    return res.render("admin_blog_page", {layout:'admin_layout', Articles:listArticles})
+}
+
+const CreateArticle = async (req, res) =>{
+    let {title, content} = req.body;
+    let path_img = "uploads" +"/" + req.file.filename;
+    await HandleCreateArticle(title, content, path_img);
+    return res.redirect("/admin-blog");
+}
+
 module.exports = {
     AdminPage,
     AdminUserPage,
@@ -80,5 +92,7 @@ module.exports = {
     AdminProductsPage,
     AdminCreateProduct,
     DeleteProduct,
-    DeleteAdmin
+    DeleteAdmin,
+    AdminBlogPage,
+    CreateArticle
 }
