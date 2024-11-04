@@ -1,4 +1,4 @@
-import {HandleCreateUser, HandleGetListUser, HandleGetListAdmin, HandleCreateAdmin} from "../services/admin"
+import {HandleCreateUser, HandleGetListUser, HandleGetListAdmin, HandleCreateAdmin, HandleGetListProducts} from "../services/Service"
 
 
 const HelloWorld =(req, res)=>{
@@ -9,8 +9,9 @@ const HomePage =(req, res)=>{
     return res.render("home", {layout:'layout'});
 }
 
-const ShopPage =(req, res)=>{
-    return res.render("shop", {layout:'layout'});
+const ShopPage = async(req, res)=>{
+    let products = await HandleGetListProducts();
+    return res.render("shop", {layout:'layout', Products:products});
 }
 
 const RegisterPage =(req, res)=>{

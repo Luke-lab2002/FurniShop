@@ -1,5 +1,5 @@
 import {HandleCreateUser, HandleGetListUser, HandleGetListAdmin, HandleCreateAdmin, HandleDeleteUser, CreateProducts, HandleGetListProducts, HandleDeleteProduct,
-    HandleDeleteAdmin} from "../services/admin"
+    HandleDeleteAdmin} from "../services/Service"
 
 
 
@@ -65,7 +65,7 @@ const AdminProductsPage = async (req, res)=>{
 
 const AdminCreateProduct = async (req, res)=>{
     let {name, price, code} = req.body;
-    let path_img = req.file.destination +"/" + req.file.filename;
+    let path_img = "uploads" +"/" + req.file.filename;
     await CreateProducts(name, price, code, path_img);
     return res.redirect("/admin-products");
 }
