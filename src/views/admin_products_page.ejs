@@ -38,7 +38,7 @@
 
 
                   <td class="d-none d-xl-table-cell"><%= product.createdAt %></td>
-                  <td><form><button type="button" class="btn btn-warning">Update</button></form></td>
+                  <td><div><a class="btn btn-warning" href="/update-product-form/<%=product.id%>">Update</a></td>
                   <td><form method="POST" action="/delete-product/<%=product.id%>"><button type="submit" class="btn btn-danger">Delete</button></form></td>
                 </tr>
               <% }) %>

@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import db from "../models";
 const bcrypt = require('bcrypt');
 
@@ -148,6 +149,35 @@ const HandleGetListProducts = async() =>{
     }
 }
 
+const HandleGetInforProduct = async(id) =>{
+    let product = await db.Products.findOne({
+        where:{
+            id:id
+        }
+    })
+
+    return product;
+}
+
+const HandleUpdateProduct = async(id, name, price, code, url_image=null) =>{
+    const updateData = {
+        name: name,
+        price: price,
+        code: code,
+    };
+    
+    // Kiểm tra nếu url_image không null thì mới thêm vào updateData
+    if (url_image !== null) {
+        updateData.url_image = url_image;
+    }
+
+    // Thực hiện cập nhật
+    await db.Products.update(updateData, {
+        where: { id: id },
+    });
+}
+
+
 const HandleCreateArticle = async (title, content, url_image) =>{
     try {
         let CheckCode = await db.Articles.findOne({ where: { title: title } });
@@ -183,6 +213,7 @@ const HandleGetListArticles = async()=>{
     }
 }
 
+
 module.exports = {
     HandleCreateUser,
     HandleGetListUser,
@@ -194,5 +225,7 @@ module.exports = {
     HandleDeleteProduct,
     HandleDeleteAdmin,
     HandleCreateArticle,
-    HandleGetListArticles
+    HandleGetListArticles,
+    HandleGetInforProduct,
+    HandleUpdateProduct
 }
