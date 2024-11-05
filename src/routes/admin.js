@@ -1,17 +1,17 @@
-import { AdminPage, 
-    AdminUserPage, 
-    CreateUser, 
-    AdminAdminsPage, 
-    CreateAdmin, 
-    DeleteUser, 
-    AdminProductsPage, 
-    AdminCreateProduct,
-    DeleteAdmin, 
-    DeleteProduct, 
-    AdminBlogPage, 
-    CreateArticle,
-    AdminUpdateProductForm,
-    AdminUpdateProduct
+import {AdminPage, 
+        AdminUserPage, 
+        CreateUser, 
+        AdminAdminsPage, 
+        CreateAdmin, 
+        DeleteUser, 
+        AdminProductsPage, 
+        AdminCreateProduct,
+        DeleteAdmin, 
+        DeleteProduct, 
+        AdminBlogPage, 
+        CreateArticle,
+        AdminUpdateProductForm,
+        AdminUpdateProduct
 } from "../controllers/admin";
 import express from "express";
 const multer = require('multer');
