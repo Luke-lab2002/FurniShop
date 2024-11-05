@@ -2,7 +2,7 @@ import {HandleCreateUser, HandleGetListUser, HandleGetListAdmin, HandleCreateAdm
     HandleDeleteAdmin, HandleCreateArticle, HandleGetListArticles, HandleGetInforProduct, HandleUpdateProduct} from "../services/Service"
 
 
-
+// Admin and user
 const AdminPage =(req, res) =>{
     return res.render("admin", {layout:'admin_layout'});
 }
@@ -48,6 +48,7 @@ const DeleteAdmin = async(req, res) =>{
     return res.redirect("/admin-admins");
 }
 
+// Product
 const DeleteProduct = async(req, res) =>{
     let id = req.params.Id;
     await HandleDeleteProduct(id);
@@ -87,6 +88,8 @@ const AdminUpdateProduct = async (req, res)=>{
     return res.redirect("/admin-products");
 }
 
+
+//blog
 const AdminBlogPage = async (req, res)=>{
     let listArticles = await HandleGetListArticles()
     return res.render("admin_blog_page", {layout:'admin_layout', Articles:listArticles})
