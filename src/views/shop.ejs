@@ -24,7 +24,7 @@
               <!-- Start Column 1 -->
             <% Products.forEach(product =>{ %>
             <div class="col-12 col-md-4 col-lg-3 mb-5">
-                <a class="product-item" href="#">
+                <a class="product-item" href="/product_details/<%=product.id%>">
                     <img src="<%= product.url_image %>" class="img-fluid product-thumbnail">
                     <h3 class="product-title"><%= product.name %></h3>
                     <strong class="product-price">$<%= product.price %></strong>

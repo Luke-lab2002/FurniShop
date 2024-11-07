@@ -2,11 +2,8 @@ import { where } from "sequelize";
 import db from "../models";
 const bcrypt = require('bcrypt');
 
-
 const saltRounds = 10;
 const banUser = false;
-
-
 
 const HandleCreateUser = async(email, name, password) =>{
     try {
@@ -36,13 +33,13 @@ const HandleCreateAdmin = async(email, name, password) =>{
         if(checkEmail != null){
             return {"message":"email đã tồn tại trong hệ thống!"};
         }else {        
-            const newUser = await db.Admin.create({ 
+            const newAdmin = await db.Admin.create({ 
             email: email, 
             name: name, 
             password: passwordhashed,
          });
     
-        return newUser.name;  }
+        return newAdmin.name;  }
       
     } catch (error) {
         console.log(error);
@@ -119,14 +116,14 @@ const CreateProducts = async (name, price, code, url_image) =>{
         if(CheckCode != null){
             return {"message":"Mã sản phẩm đã tồn tại trong hệ thống!"};
         }else {        
-            const newUser = await db.Products.create({ 
+            const newProduct = await db.Products.create({ 
             name: name, 
             price: price, 
             code: code,
             url_image: url_image
          });
     
-        return newUser.name;  }
+        return newProduct.name;  }
     } catch (error) {
         console.log(error);
     }
@@ -184,13 +181,13 @@ const HandleCreateArticle = async (title, content, url_image) =>{
         if(CheckCode != null){
             return {"message":"Tiêu đề đã tồn tại trong hệ thống"};
         }else {        
-            const newUser = await db.Articles.create({ 
+            const newArticle = await db.Articles.create({ 
             title: title, 
             content: content, 
             url_image: url_image
          });
     
-        return newUser.name;  }
+        return newArticle.name;  }
     } catch (error) {
         console.log(error);
     }
@@ -213,6 +210,57 @@ const HandleGetListArticles = async()=>{
     }
 }
 
+const HandleCreateOrderDetails = async (order_id, product_id, number)=>{
+    try {
+            const newOrderDetail = await db.OrderDetails.create({ 
+            order_id: order_id, 
+            product_id: product_id, 
+            number: number,
+         });
+    
+        return newOrderDetail;  
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const HandleCreateOrder = async (user_id, address, state_id, state_notifi=false)=>{
+    try {
+        const newOrder = await db.Orders.create({ 
+        user_id: user_id, 
+        address: address, 
+        state_id: state_id,
+        state_notifi:state_notifi
+     });
+
+        return newOrder;  
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const HandleOrder = async (user_id, address, product_id, number)=>{
+    let state_id = 0;
+    let orderdetail;
+    try {
+        let checkOrder = await db.Orders.findOne({where:{user_id:user_id,
+            state_id:state_id
+        }});
+        if(checkOrder == null){
+           let order = HandleCreateOrder(user_id, address, state_id);
+           orderdetail = HandleCreateOrderDetails(order.id, product_id, number);
+        
+        }else{
+           orderdetail = HandleCreateOrderDetails(checkOrder.id, product_id, number);
+        }
+
+        return orderdetail;
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 module.exports = {
     HandleCreateUser,
@@ -227,5 +275,8 @@ module.exports = {
     HandleCreateArticle,
     HandleGetListArticles,
     HandleGetInforProduct,
-    HandleUpdateProduct
+    HandleUpdateProduct, 
+    HandleCreateOrderDetails,
+    HandleCreateOrder,
+    HandleOrder
 }

@@ -1,4 +1,4 @@
-import {HandleCreateUser, HandleGetListUser, HandleGetListAdmin, HandleCreateAdmin, HandleGetListProducts} from "../services/Service"
+import {HandleCreateUser, HandleGetListUser, HandleGetListAdmin, HandleCreateAdmin, HandleGetListProducts, HandleGetInforProduct, HandleOrder} from "../services/Service"
 
 
 const HelloWorld =(req, res)=>{
@@ -36,6 +36,28 @@ const RegisterUser = async(req, res) =>{
     return res.redirect("/login");
 }
 
+const ProductDetails = async (req, res)=>{
+    let id = req.params.Id;
+    let product = await HandleGetInforProduct(id);
+    return res.render("product_details", {layout:'layout', product:product});
+}
+
+const CreateOrder = async (req, res) =>{
+    let id = req.params.Id;
+    let number = req.body.number_product
+    await HandleOrder(
+        null,
+        null,
+        id,
+        number
+    )
+    console.log("check id >>> ", id);
+    console.log("request body >>>", req.body);
+    return res.redirect("/product_details/"+id);
+}
+
+
+
 
 module.exports ={
     HelloWorld,
@@ -45,5 +67,7 @@ module.exports ={
     LoginPage,
     BlogPage,
     CartPage,
-    RegisterUser
+    RegisterUser,
+    ProductDetails,
+    CreateOrder
 }
