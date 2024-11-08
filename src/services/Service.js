@@ -1,4 +1,3 @@
-import { where } from "sequelize";
 import db from "../models";
 import bcrypt from 'bcrypt';
 
@@ -261,13 +260,14 @@ const HandleOrder = async (user_id, address, product_id, number)=>{
     }
 }
 
+// cần sửa sau khi hoàn thiện đăng nhập
 const GetListOrderDetails = async ()=>{
     try {
         let ListOrderDetails = await db.OrderDetails.findAll({
             include: [{
                 model: db.Products,
                 as:'Products',
-                attributes: ['name', "url_image", "price"] // Chỉ lấy tên admin
+                attributes: ['name', "url_image", "price"] 
             }]
         });     // console.log(ListUsers)
         return ListOrderDetails

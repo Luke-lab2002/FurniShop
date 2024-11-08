@@ -72,6 +72,9 @@ const UpdateOrderQuantity = async (req, res) =>{
     return res.redirect("/cart");
 }
 
+const CheckoutOrder = (req, res) =>{
+    return res.render("checkout", {layout:"layout"})
+}
 
 
 
@@ -87,5 +90,6 @@ module.exports ={
     ProductDetails,
     CreateOrder,
     RemoveOrderDetail,
-    UpdateOrderQuantity
+    UpdateOrderQuantity,
+    CheckoutOrder
 }
