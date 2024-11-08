@@ -1,4 +1,4 @@
-import {HandleCreateUser, HandleGetListUser, HandleGetListAdmin, HandleCreateAdmin, HandleGetListProducts, HandleGetInforProduct, HandleOrder} from "../services/Service"
+import {HandleCreateUser, GetListOrderDetails, UpdateOrderDetails, HandleGetListUser, HandleGetListAdmin, HandleCreateAdmin, HandleGetListProducts, HandleGetInforProduct, HandleOrder, RemoveOrderDetailsDB} from "../services/Service"
 
 
 const HelloWorld =(req, res)=>{
@@ -26,8 +26,11 @@ const BlogPage =(req, res) =>{
     return res.render("blog", {layout:'layout'});
 }
 
-const CartPage =(req, res) =>{
-    return res.render("cart", {layout:'layout'});
+const CartPage = async(req, res) =>{
+
+    let listOrderDetails = await GetListOrderDetails();
+    // console.log(listOrderDetails);
+    return res.render("cart", {layout:'layout', listOrderDetails:listOrderDetails});
 }
 
 const RegisterUser = async(req, res) =>{
@@ -56,6 +59,19 @@ const CreateOrder = async (req, res) =>{
     return res.redirect("/product_details/"+id);
 }
 
+const RemoveOrderDetail = async (req, res)=>{
+    let id = req.params.Id;
+    await RemoveOrderDetailsDB(id);
+    return res.redirect("/cart");
+}
+
+const UpdateOrderQuantity = async (req, res) =>{
+    let number = req.body.number;
+    let id = req.params.Id;
+    await UpdateOrderDetails(id, number);
+    return res.redirect("/cart");
+}
+
 
 
 
@@ -69,5 +85,7 @@ module.exports ={
     CartPage,
     RegisterUser,
     ProductDetails,
-    CreateOrder
+    CreateOrder,
+    RemoveOrderDetail,
+    UpdateOrderQuantity
 }

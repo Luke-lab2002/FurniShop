@@ -1,6 +1,6 @@
 import { where } from "sequelize";
 import db from "../models";
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
 const saltRounds = 10;
 const banUser = false;
@@ -131,7 +131,7 @@ const CreateProducts = async (name, price, code, url_image) =>{
 
 const HandleGetListProducts = async() =>{
     try {
-        let ListUsers = await db.Products.findAll({
+        let ListProduct = await db.Products.findAll({
             include: [{
                 model: db.Admin,
                 as:'Admin',
@@ -139,7 +139,7 @@ const HandleGetListProducts = async() =>{
             }]
         });
         // console.log(ListUsers)
-        return ListUsers
+        return ListProduct
 
     } catch (error) {
         console.log(error);
@@ -195,7 +195,7 @@ const HandleCreateArticle = async (title, content, url_image) =>{
 
 const HandleGetListArticles = async()=>{
     try {
-        let ListUsers = await db.Articles.findAll({
+        let ListArticles = await db.Articles.findAll({
             include: [{
                 model: db.Admin,
                 as:'Admin',
@@ -203,7 +203,7 @@ const HandleGetListArticles = async()=>{
             }]
         });
         // console.log(ListUsers)
-        return ListUsers
+        return ListArticles
 
     } catch (error) {
         console.log(error);
@@ -261,6 +261,51 @@ const HandleOrder = async (user_id, address, product_id, number)=>{
     }
 }
 
+const GetListOrderDetails = async ()=>{
+    try {
+        let ListOrderDetails = await db.OrderDetails.findAll({
+            include: [{
+                model: db.Products,
+                as:'Products',
+                attributes: ['name', "url_image", "price"] // Chỉ lấy tên admin
+            }]
+        });     // console.log(ListUsers)
+        return ListOrderDetails
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const RemoveOrderDetailsDB = async (id)=>{
+    try {
+        await db.OrderDetails.destroy({
+            where: {
+                id: id,
+            },
+        });
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+const UpdateOrderDetails = async (id, number) =>{
+    try {
+        const updateData = {
+            number:number
+        };
+
+        await db.OrderDetails.update(updateData,{
+            where:{
+                id:id
+            }
+        })
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 module.exports = {
     HandleCreateUser,
@@ -278,5 +323,8 @@ module.exports = {
     HandleUpdateProduct, 
     HandleCreateOrderDetails,
     HandleCreateOrder,
-    HandleOrder
+    HandleOrder,
+    GetListOrderDetails,
+    RemoveOrderDetailsDB,
+    UpdateOrderDetails
 }
