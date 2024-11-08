@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import db from "../models";
 import bcrypt from 'bcrypt';
 
@@ -22,6 +23,26 @@ const HandleCreateUser = async(email, name, password) =>{
       
     } catch (error) {
         console.log(error);
+    }
+}
+
+const HandleLoginUser = async(email, password)=>{
+    try {
+        let checkEmail = await db.Users.findOne({ where: { email: email } });
+        if(checkEmail != null){
+            let checkPassword = bcrypt.compareSync(password, checkEmail.password);
+            if(checkPassword){
+                return checkEmail;
+            }
+            else{
+                console.log("EC2 Email hoặc mật khẩu bị lỗi");    
+            }
+        } 
+        else{
+            console.log("EC1 Email hoặc mật khẩu bị lỗi");
+        }
+    } catch (error) {
+        console.log(error)
     }
 }
 
@@ -211,7 +232,7 @@ const HandleGetListArticles = async()=>{
 
 const HandleCreateOrderDetails = async (order_id, product_id, number)=>{
     try {
-            const newOrderDetail = await db.OrderDetails.create({ 
+        const newOrderDetail = await db.OrderDetails.create({ 
             order_id: order_id, 
             product_id: product_id, 
             number: number,
@@ -240,36 +261,53 @@ const HandleCreateOrder = async (user_id, address, state_id, state_notifi=false)
 
 const HandleOrder = async (user_id, address, product_id, number)=>{
     let state_id = 0;
-    let orderdetail;
     try {
         let checkOrder = await db.Orders.findOne({where:{user_id:user_id,
             state_id:state_id
         }});
+        console.log(checkOrder);
         if(checkOrder == null){
-           let order = HandleCreateOrder(user_id, address, state_id);
-           orderdetail = HandleCreateOrderDetails(order.id, product_id, number);
+           let order = await HandleCreateOrder(user_id, address, state_id);
+           let orderdetail = await HandleCreateOrderDetails(order.id, product_id, number);
+           return orderdetail;
         
         }else{
-           orderdetail = HandleCreateOrderDetails(checkOrder.id, product_id, number);
+           let orderdetail = HandleCreateOrderDetails(checkOrder.id, product_id, number);
+           return orderdetail;
         }
 
-        return orderdetail;
         
     } catch (error) {
         console.log(error);
     }
 }
 
-// cần sửa sau khi hoàn thiện đăng nhập
-const GetListOrderDetails = async ()=>{
+const GetListOrderDetails = async (email)=>{
     try {
         let ListOrderDetails = await db.OrderDetails.findAll({
-            include: [{
+            include: [ {
+                model: db.Orders,
+                as: 'Orders',
+                required: true,
+                where:{
+                    state_id:0
+                },
+                include: [
+                    {
+                        model: db.Users,
+                        as: 'Users',
+                        required: true,
+                        where: { email: email }, // Tìm theo email trong bảng User
+                    },
+                ],
+            },
+            {
                 model: db.Products,
                 as:'Products',
                 attributes: ['name', "url_image", "price"] 
-            }]
-        });     // console.log(ListUsers)
+            }],
+        });     
+        console.log(ListOrderDetails)
         return ListOrderDetails
 
     } catch (error) {
@@ -307,6 +345,25 @@ const UpdateOrderDetails = async (id, number) =>{
     }
 }
 
+const UpdateOrder = async (user_id, address) =>{
+    try {
+        const updateData = {
+            address:address,
+            state_id:1,
+        };
+
+        await db.Orders.update(updateData,{
+            where:{
+                user_id:user_id,
+                state_id:0,
+            }
+        })
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     HandleCreateUser,
     HandleGetListUser,
@@ -326,5 +383,7 @@ module.exports = {
     HandleOrder,
     GetListOrderDetails,
     RemoveOrderDetailsDB,
-    UpdateOrderDetails
+    UpdateOrderDetails,
+    HandleLoginUser,
+    UpdateOrder
 }

@@ -21,21 +21,42 @@
   
         <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
 
-          <li>
+        
+            <% if (user.name) { %>
+            <li>
             <div class="dropdown">
               <a class="dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <!-- <a class="nav-link" href="#"> -->
                   <img src="/images/user.svg">
                 <!-- </a> -->
               </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="/login">Login</a>
-                  <a class="dropdown-item" href="/register">Register</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <p class="dropdown-item" ><%= user.name %></p>
+                  <form class="dropdown-item" method="POST" action="/logout_user">
+                    <button class="dropdown-item" type="submit">Logout</button>
+                  </form>
+                  <!-- <a class="dropdown-item" href="/logout_user">Logout</a> -->
+                </div>
               </div>
-          </div>
+            </li>
+              <li><a class="nav-link" href="/cart"><img src="/images/cart.svg"></a></li>
+              <% } else { %>
+              <li>
+                <div class="dropdown">
+                  <a class="dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <!-- <a class="nav-link" href="#"> -->
+                      <img src="/images/user.svg">
+                    <!-- </a> -->
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="/login">Login</a>
+                      <a class="dropdown-item" href="/register">Register</a>
+                  </div>
+                </div>
+              </li>
+              <% } %>
+       
           
-          </li>
-          <li><a class="nav-link" href="/cart"><img src="/images/cart.svg"></a></li>
         </ul>
       </div>
     </div>

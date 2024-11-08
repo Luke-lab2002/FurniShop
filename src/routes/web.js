@@ -11,7 +11,10 @@ import { HelloWorld,
     CreateOrder, 
     RemoveOrderDetail, 
     UpdateOrderQuantity,
-    CheckoutOrder
+    CheckoutOrder,
+    LoginUser,
+    LogoutUser,
+    SubmitOrder
 } from "../controllers/web";
 
 const router = express.Router();
@@ -29,7 +32,10 @@ const InitRouter = (app) =>{
     router.post("/create_order_details/:Id", CreateOrder);
     router.post("/delete_order_details/:Id", RemoveOrderDetail);
     router.post("/update-order-quantity/:Id", UpdateOrderQuantity);
-    router.get("/checkout_product", CheckoutOrder)
+    router.get("/checkout_product", CheckoutOrder);
+    router.post("/login_user", LoginUser);
+    router.post("/logout_user", LogoutUser);
+    router.post("/place_order", SubmitOrder)
 
     return app.use("/", router);
 }
