@@ -89,6 +89,26 @@ const HandleGetListAdmin = async() =>{
     }
 }
 
+const HandleLoginAdmin = async(email, password)=>{
+    try {
+        let checkEmail = await db.Admin.findOne({ where: { email: email } });
+        if(checkEmail != null){
+            let checkPassword = bcrypt.compareSync(password, checkEmail.password);
+            if(checkPassword){
+                return checkEmail;
+            }
+            else{
+                console.log("EC2 Email hoặc mật khẩu bị lỗi");    
+            }
+        } 
+        else{
+            console.log("EC1 Email hoặc mật khẩu bị lỗi");
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const HandleDeleteUser = async(id) =>{
     try {
         await db.Users.destroy({
@@ -385,5 +405,6 @@ module.exports = {
     RemoveOrderDetailsDB,
     UpdateOrderDetails,
     HandleLoginUser,
-    UpdateOrder
+    UpdateOrder,
+    HandleLoginAdmin
 }

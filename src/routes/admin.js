@@ -11,7 +11,9 @@ import {AdminPage,
         AdminBlogPage, 
         CreateArticle,
         AdminUpdateProductForm,
-        AdminUpdateProduct
+        AdminUpdateProduct,
+        LoginAdmin,
+        AdminLogOut
 } from "../controllers/admin";
 import express from "express";
 const multer = require('multer');
@@ -38,6 +40,8 @@ const InitRouterAdmin = (app) =>{
     router.get("/admin-products",AdminProductsPage);
     router.get("/admin-blog",AdminBlogPage);
 
+    router.post("/login-admin", LoginAdmin);
+    router.post("/logout-admin", AdminLogOut)
     router.post("/admin-createuser", CreateUser);
     router.post("/admin-create-admin", CreateAdmin);
     router.post("/delete-user/:Id", DeleteUser);
