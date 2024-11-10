@@ -37,7 +37,7 @@ const InitRouter = (app) =>{
     router.post("/logout_user", LogoutUser);
     router.post("/place_order", SubmitOrder)
 
-    return app.use("/", router);
+    return app.use("/",router);
 }
 
 

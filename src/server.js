@@ -27,9 +27,8 @@ app.use(session({
 
 configViewEngine(app);
 app.use(expressLayouts);
-InitRouterAdmin(app);
 InitRouter(app);
-
+InitRouterAdmin(app);
 
 app.listen(PORT, ()=>{
     console.log("Running backend by PORT", PORT);

@@ -35,8 +35,6 @@ const LoginAdmin = async (req, res)=>{
         req.session.email = email; // Lưu thông tin người dùng vào session
         req.session.name = checklogin.name;
         req.session.role = "admin"
-        console.log(req.session.email);
-        console.log(req.session);
         return res.redirect('/admin'); // Chuyển hướng về trang chính
     }
     
@@ -69,22 +67,19 @@ const AdminAdminsPage = async (req, res) =>{
 
 const CreateUser = async(req, res) =>{
     let {email, name, password} = req.body;
-    let result = await HandleCreateUser(email, name, password);
-    console.log(result);
+    await HandleCreateUser(email, name, password);
     return res.redirect("/admin-users");
 }
 
 const CreateAdmin = async(req, res) =>{
     let {email, name, password} = req.body;
-    let result = await HandleCreateAdmin(email, name, password);
-    console.log(result);
+    await HandleCreateAdmin(email, name, password);
     return res.redirect("/admin-admins");
 }
 
 const DeleteUser = async(req, res) =>{
     let id = req.params.Id;
     await HandleDeleteUser(id);
-    console.log("check id >>",id);
     return res.redirect("/admin-users");
 }
 
@@ -107,14 +102,16 @@ const DeleteProduct = async(req, res) =>{
 const AdminProductsPage = async (req, res)=>{
     let admin = req.session;
     let listProucts = await HandleGetListProducts();
+    console.log(listProucts);
     return res.render("admin_products_page", {layout:'admin_layout', Products:listProucts, admin:admin});
 
 }
 
 const AdminCreateProduct = async (req, res)=>{
     let {name, price, code} = req.body;
+    let admin_id = req.session.Id;
     let path_img = "uploads" +"/" + req.file.filename;
-    await CreateProducts(name, price, code, path_img);
+    await CreateProducts(name, price, code, path_img, admin_id);
     return res.redirect("/admin-products");
 }
 

@@ -28,11 +28,20 @@ const BlogPage =(req, res) =>{
 }
 
 const CartPage = async(req, res) =>{
-    let email = req.session.email;
-    console.log(email);
-    let listOrderDetails = await GetListOrderDetails(email);
-    // console.log(listOrderDetails);
-    return res.render("cart", {layout:'layout', listOrderDetails:listOrderDetails, user:req.session});
+    try {
+        let email = req.session.email;
+        if(email){
+            let listOrderDetails = await GetListOrderDetails(email);
+            // console.log(listOrderDetails);
+            return res.render("cart", {layout:'layout', listOrderDetails:listOrderDetails, user:req.session});
+        }else{
+            res.redirect("/login");
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+   
 }
 
 const RegisterUser = async(req, res) =>{

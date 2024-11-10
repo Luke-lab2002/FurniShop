@@ -150,7 +150,7 @@ const HandleDeleteProduct = async(id) =>{
 
 
 
-const CreateProducts = async (name, price, code, url_image) =>{
+const CreateProducts = async (name, price, code, url_image, admin_id) =>{
     try {
         let CheckCode = await db.Products.findOne({ where: { code: code } });
         if(CheckCode != null){
@@ -160,7 +160,8 @@ const CreateProducts = async (name, price, code, url_image) =>{
             name: name, 
             price: price, 
             code: code,
-            url_image: url_image
+            url_image: url_image,
+            admin_id:admin_id
          });
     
         return newProduct.name;  }
@@ -175,10 +176,10 @@ const HandleGetListProducts = async() =>{
             include: [{
                 model: db.Admin,
                 as:'Admin',
-                attributes: ['name'] // Chỉ lấy tên admin
+                attributes:['name'],                 
             }]
         });
-        // console.log(ListUsers)
+        console.log(ListProduct.map(product => product.toJSON()));
         return ListProduct
 
     } catch (error) {
@@ -242,7 +243,7 @@ const HandleGetListArticles = async()=>{
                 attributes: ['name'] // Chỉ lấy tên admin
             }]
         });
-        // console.log(ListUsers)
+        console.log(ListArticles)
         return ListArticles
 
     } catch (error) {

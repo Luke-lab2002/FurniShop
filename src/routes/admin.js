@@ -15,6 +15,7 @@ import {AdminPage,
         LoginAdmin,
         AdminLogOut
 } from "../controllers/admin";
+import { authAdminLogin } from "../middleware/auth";
 import express from "express";
 const multer = require('multer');
 const path = require('path');
@@ -54,7 +55,7 @@ const InitRouterAdmin = (app) =>{
     router.post("/admin-create-article",upload.single('image'), CreateArticle);
 
 
-    return app.use("/", router);
+    return app.use("/",authAdminLogin ,router);
 }
 
 export default InitRouterAdmin;
