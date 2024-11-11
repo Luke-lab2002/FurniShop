@@ -11,7 +11,13 @@ import {HandleCreateUser,
      HandleGetListArticles, 
      HandleGetInforProduct, 
      HandleUpdateProduct,
-     HandleLoginAdmin
+     HandleLoginAdmin,
+     GetListOrder,
+     AdminGetListOrderDetails,
+     SetStateOrderNotifi,
+     SetStateOrderId,
+     DeleteOrder,
+     RemoveOrderDetailsDB
     } from "../services/Service"
 
 
@@ -149,6 +155,45 @@ const CreateArticle = async (req, res) =>{
     return res.redirect("/admin-blog");
 }
 
+//cart 
+const AdminCartPage = async (req, res)=>{
+    let admin = req.session;
+    let listOrder = await GetListOrder();
+    return res.render("admin_cart",{layout:'admin_layout', admin:admin, Orders:listOrder});
+}
+
+const AdminCartOrderDetailsPage = async (req, res)=>{
+    let admin = req.session;
+    let id = req.params.Id;
+    let ListOrderDetails = await AdminGetListOrderDetails(id);
+    return res.render("admin_list_orderdetails",{layout:'admin_layout', admin:admin, OrderDetails:ListOrderDetails});
+}
+
+const AdminReadOrder = async(req, res) =>{
+    let Id = req.params.Id;
+    await SetStateOrderNotifi(Id, 1);
+    return res.redirect("/admin-cart");
+}
+
+const AdminShipOrder = async(req, res) =>{
+    let Id = req.params.Id;
+    await SetStateOrderId(Id, 2);
+    return res.redirect("/admin-cart");
+}
+
+const AdminDeleteOrder = async(req, res) =>{
+    let Id = req.params.Id;
+    await DeleteOrder(Id);
+    return res.redirect("/admin-cart");
+
+}
+
+const RemoveOrderDetail = async (req, res)=>{
+    let id = req.params.Id;
+    await RemoveOrderDetailsDB(id);
+    return res.redirect("/admin-cart");
+}
+
 module.exports = {
     AdminPage,
     AdminUserPage,
@@ -165,5 +210,11 @@ module.exports = {
     AdminUpdateProductForm,
     AdminUpdateProduct,
     LoginAdmin,
-    AdminLogOut
+    AdminLogOut,
+    AdminCartPage,
+    AdminCartOrderDetailsPage,
+    AdminReadOrder,
+    AdminShipOrder,
+    AdminDeleteOrder,
+    RemoveOrderDetail
 }

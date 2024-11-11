@@ -1,0 +1,26 @@
+<div class="card flex-fill">
+    <div class="card-header">
+
+      <h5 class="card-title mb-0">Orders</h5>
+    </div>
+    <table class="table table-hover my-0">
+      <thead>
+        <tr>
+          <th class="d-none d-xl-table-cell">Name</th>
+          <th class="d-none d-xl-table-cell">Number</th>
+          <th class="d-none d-xl-table-cell">Created At</th>
+          <th class="d-none d-xl-table-cell">delete</th>
+        </tr>
+      </thead>
+      <tbody>    
+        <% OrderDetails.forEach(orderDetail =>{ %>
+            <tr>
+              <td><%= orderDetail.Products.name %></td>
+              <td class="d-none d-xl-table-cell"><%= orderDetail.number %></td>
+              <td class="d-none d-xl-table-cell"><%= orderDetail.createdAt %></td>
+              <td><form method="POST" action="/admin-delete-cart-orderdetail/<%=orderDetail.id %>"><button type="submit" class="btn btn-danger">Delete</button></form></td>
+            </tr>
+          <% }) %>
+      </tbody>
+    </table>
+  </div>

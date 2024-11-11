@@ -385,6 +385,98 @@ const UpdateOrder = async (user_id, address) =>{
     }
 }
 
+const GetListOrder = async()=>{
+    try {
+        let ListOrderDetails = await db.Orders.findAll({
+            include: [ {
+                model: db.Users,
+                as: 'Users',
+                required: true,
+                attributes: ["name"],
+            }]
+        });     
+        console.log(ListOrderDetails)
+        return ListOrderDetails
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const AdminGetListOrderDetails = async (order_id)=>{
+    try {
+        let ListOrderDetails = await db.OrderDetails.findAll({
+            include: [ {
+                model: db.Orders,
+                as: 'Orders',
+                required: true,
+                where:{
+                    id:order_id
+                },
+            },
+            {
+                model: db.Products,
+                as:'Products',
+                attributes: ['name'] 
+            }],
+        });     
+        console.log(ListOrderDetails)
+        return ListOrderDetails
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const SetStateOrderNotifi = async (Order_id, state_notifi)=>{
+    try {
+        const updateData = {
+            state_notifi:state_notifi,
+        };
+
+        await db.Orders.update(updateData,{
+            where:{
+                id:Order_id,
+                state_id:1,
+            }
+        })
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const SetStateOrderId = async (Order_id, state_id)=>{
+    try {
+        const updateData = {
+            state_id:state_id,
+        };
+
+        await db.Orders.update(updateData,{
+            where:{
+                id:Order_id,
+                state_id:1,
+            }
+        })
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const DeleteOrder = async(order_id)=>{
+    try {
+        await db.Orders.destroy({
+            where: {
+                id: order_id,
+            },
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
 module.exports = {
     HandleCreateUser,
     HandleGetListUser,
@@ -407,5 +499,10 @@ module.exports = {
     UpdateOrderDetails,
     HandleLoginUser,
     UpdateOrder,
-    HandleLoginAdmin
+    HandleLoginAdmin,
+    GetListOrder,
+    AdminGetListOrderDetails,
+    SetStateOrderNotifi,
+    SetStateOrderId,
+    DeleteOrder,
 }

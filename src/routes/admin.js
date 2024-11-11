@@ -13,7 +13,13 @@ import {AdminPage,
         AdminUpdateProductForm,
         AdminUpdateProduct,
         LoginAdmin,
-        AdminLogOut
+        AdminLogOut,
+        AdminCartPage,
+        AdminCartOrderDetailsPage,
+        AdminReadOrder,
+        AdminShipOrder,
+        AdminDeleteOrder,
+        RemoveOrderDetail
 } from "../controllers/admin";
 import { authAdminLogin } from "../middleware/auth";
 import express from "express";
@@ -39,8 +45,13 @@ const InitRouterAdmin = (app) =>{
     router.get("/admin-users", AdminUserPage);
     router.get("/admin-admins", AdminAdminsPage);
     router.get("/admin-products",AdminProductsPage);
-    router.get("/admin-blog",AdminBlogPage);
-
+    router.get("/admin-blog", AdminBlogPage);
+    router.get("/admin-cart", AdminCartPage);
+    router.post("/admin-cart-read/:Id", AdminReadOrder);
+    router.post("/admin-cart-ship/:Id", AdminShipOrder);
+    router.post("/admin-delete-cart-order/:Id", AdminDeleteOrder);
+    router.post("/admin-delete-cart-orderdetail/:Id",RemoveOrderDetail)
+    router.get("/admin-cart-orderdetails/:Id", AdminCartOrderDetailsPage);
     router.post("/login-admin", LoginAdmin);
     router.post("/logout-admin", AdminLogOut)
     router.post("/admin-createuser", CreateUser);

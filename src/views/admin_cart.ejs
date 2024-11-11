@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/add_user_form.css">
+    <title>Document</title>
+</head>
+<body>
+  <div class="page">
+    <div class="row">
+      <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+        <div class="card flex-fill">
+          <div class="card-header">
+  
+            <h5 class="card-title mb-0">Orders</h5>
+          </div>
+          <table class="table table-hover my-0">
+            <thead>
+              <tr>
+                <th class="d-none d-xl-table-cell">Username</th>
+                <th class="d-none d-xl-table-cell">Address</th>
+                <th class="d-none d-xl-table-cell">Products details</th>
+                <th class="d-none d-xl-table-cell">Created At</th>
+                <th class="d-none d-xl-table-cell">Read</th>
+                <th class="d-none d-xl-table-cell">Ship</th>
+                <th class="d-none d-xl-table-cell">Delete</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <% Orders.forEach(order =>{ %>
+                <tr>
+                  <td><%= order.Users.name %></td>
+                  <td class="d-none d-xl-table-cell"><%= order.address %></td>
+                  <td class="d-none d-xl-table-cell">
+                    <a class="btn btn-primary" href="/admin-cart-orderdetails/<%=order.id%>">Detail</a>
+                  </td>
+                  <td class="d-none d-xl-table-cell"><%= order.createdAt %></td>
+
+                  <% if(order.state_notifi){ %>
+                  <td><form method="POST" action=""><button type="submit" class="btn btn-secondary">Read</button></form>
+                  </td>
+                  <% } else {%>
+                    <td><form method="POST" action="/admin-cart-read/<%=order.id%>"><button type="submit" class="btn btn-success">Read</button></form>
+                    </td>
+                  <%}%>
+
+                  <% if(order.state_id == 2){ %>
+                    <td><form method="POST" action=""><button type="submit" class="btn btn-secondary">Ship</button></form>
+                    </td>
+                    <% } else {%>
+                      <td><form method="POST" action="/admin-cart-ship/<%=order.id%>"><button type="submit" class="btn btn-primary">Ship</button></form>
+                      </td>
+                    <%}%>
+
+                    <td><form method="POST" action="/admin-delete-cart-order/<%=order.id%>"><button type="submit" class="btn btn-danger">Delete</button></form></td>
+
+
+                </tr>
+              <% }) %>
+          
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
